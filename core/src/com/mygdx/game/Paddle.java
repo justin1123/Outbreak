@@ -30,11 +30,22 @@ public class Paddle {
     public void update(float delta) {
         if (Gdx.input.isKeyPressed(Keys.LEFT)) {
             velocity.x -= delta * Constants.PADDLE_ACCEL;
+
         } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
             velocity.x += delta * Constants.PADDLE_ACCEL;
         }
 
         velocity.clamp(0, Constants.PADDLE_SPEED);
+
+        if (position.x < 0) {
+            velocity.x = 0;
+            position.x = 0;
+        }
+
+        if (position.x + Constants.PADDLE_LEN > viewport.getWorldWidth()) {
+            velocity.x = 0;
+            position.x = viewport.getWorldWidth() - Constants.PADDLE_LEN;
+        }
 
         velocity.x -= delta * Constants.PADDLE_DRAG * velocity.x;
 

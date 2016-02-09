@@ -5,13 +5,14 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class OutbreakScreen implements Screen  {
 
@@ -21,11 +22,13 @@ public class OutbreakScreen implements Screen  {
 
     OutbreakGame game;
 
-    ExtendViewport outbreakViewport;
+    ScreenViewport outbreakViewport;
 
     ShapeRenderer renderer;
 
     Paddle paddle;
+
+    Ball ball;
 
     public OutbreakScreen(OutbreakGame game){
         this.game = game;
@@ -33,17 +36,20 @@ public class OutbreakScreen implements Screen  {
 
     @Override
     public void show() {
-        outbreakViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
+        outbreakViewport = new ScreenViewport(new OrthographicCamera(Constants.WORLD_W,Constants.WORLD_H));
 
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
 
         paddle = new Paddle(outbreakViewport);
+
+        ball = new Ball(paddle);
     }
 
     @Override
     public void render(float delta) {
         paddle.update(delta);
+        ball.update(delta, outbreakViewport);
 
         outbreakViewport.apply();
 
@@ -53,6 +59,7 @@ public class OutbreakScreen implements Screen  {
         renderer.setProjectionMatrix(outbreakViewport.getCamera().combined);
         renderer.begin(ShapeType.Filled);
         paddle.render(renderer);
+        ball.render(renderer);
         renderer.end();
 
     }
@@ -62,6 +69,7 @@ public class OutbreakScreen implements Screen  {
         outbreakViewport.update(width, height, true);
 
         paddle.init();
+        ball.init();
 
     }
 
