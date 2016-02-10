@@ -17,8 +17,8 @@ public class Paddle {
     Vector2 velocity;
     Viewport viewport;
 
-    public Paddle(Viewport viewport){
-        this.viewport = viewport;
+    public Paddle(Viewport viewportIn){
+        viewport = viewportIn;
         init();
     }
 
