@@ -37,7 +37,7 @@ public class Ball extends InputAdapter{
 
     private void kick() {
         Random random = new Random();
-        float angle = MathUtils.PI2 * random.nextFloat();
+        float angle = 90;//MathUtils.PI2 * random.nextFloat();
         velocity.x = Constants.BALL_SPEED * MathUtils.cos(angle);
         velocity.y = Constants.BALL_SPEED * MathUtils.sin(angle);
     }
@@ -52,6 +52,7 @@ public class Ball extends InputAdapter{
         }
 
         collideWithWalls(Constants.BALL_RADIUS, viewport.getWorldWidth(), viewport.getWorldHeight());
+        collideWithPaddle();
     }
 
 
@@ -88,6 +89,13 @@ public class Ball extends InputAdapter{
     }
 
     public void collideWithPaddle(){
+        if (position.x > paddle.position.x && position.x < paddle.position.x + Constants.PADDLE_LEN) {
+            if (position.y - Constants.BALL_RADIUS <= paddle.position.y + Constants.PADDLE_LEN/4) {
+                velocity.y = -velocity.y;
+                velocity.x = -velocity.x;
+            }
+        }
+
         
     }
 
