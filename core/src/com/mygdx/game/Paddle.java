@@ -9,11 +9,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
-public class Paddle {
+public class Paddle extends GameObject {
 
     public static final String TAG = Paddle.class.getName();
 
-    Vector2 position;
     Vector2 velocity;
     Viewport viewport;
 

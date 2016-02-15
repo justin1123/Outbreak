@@ -11,8 +11,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class OutbreakScreen implements Screen  {
 
@@ -22,7 +23,7 @@ public class OutbreakScreen implements Screen  {
 
     OutbreakGame game;
 
-    ExtendViewport outbreakViewport;
+    FitViewport outbreakViewport;
 
     ShapeRenderer renderer;
 
@@ -30,13 +31,15 @@ public class OutbreakScreen implements Screen  {
 
     Ball ball;
 
+    Blocks blocks;
+
     public OutbreakScreen(OutbreakGame game){
         this.game = game;
     }
 
     @Override
     public void show() {
-        outbreakViewport = new ExtendViewport(Constants.WORLD_W, Constants.WORLD_H);
+        outbreakViewport = new FitViewport(Constants.WORLD_W, Constants.WORLD_H);
 
         renderer = new ShapeRenderer();
         renderer.setAutoShapeType(true);
@@ -44,6 +47,8 @@ public class OutbreakScreen implements Screen  {
         paddle = new Paddle(outbreakViewport);
 
         ball = new Ball(paddle);
+
+        blocks = new Blocks();
 
         Gdx.input.setInputProcessor(ball);
     }
@@ -62,6 +67,7 @@ public class OutbreakScreen implements Screen  {
         renderer.begin(ShapeType.Filled);
         paddle.render(renderer);
         ball.render(renderer);
+        blocks.render(renderer);
         renderer.end();
 
     }
