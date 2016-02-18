@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
+
 public class Paddle extends GameObject {
 
     public static final String TAG = Paddle.class.getName();
@@ -49,6 +50,10 @@ public class Paddle extends GameObject {
         velocity.x -= delta * Constants.PADDLE_DRAG * velocity.x;
 
         position.x += delta * velocity.x;
+
+        float accelInput = -Gdx.input.getAccelerometerY() / (9.8f * 0.5f);
+
+        position.x += -delta * accelInput * Constants.PADDLE_SPEED;
     }
 
     public void render(ShapeRenderer renderer) {
@@ -60,4 +65,5 @@ public class Paddle extends GameObject {
         renderer.rect(position.x, position.y, Constants.PADDLE_LEN, Constants.PADDLE_LEN / 4);
 
     }
+
 }

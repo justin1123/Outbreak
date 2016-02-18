@@ -69,7 +69,7 @@ public class OutbreakScreen implements Screen  {
         ball.render(renderer);
         blocks.render(renderer);
         renderer.end();
-
+        ball.collideWithBlock(blocks);
     }
 
     @Override

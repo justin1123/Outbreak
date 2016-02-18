@@ -6,27 +6,27 @@ import com.badlogic.gdx.utils.DelayedRemovalArray;
 
 public class Blocks extends GameObject {
 
-    DelayedRemovalArray<Block> blocks;
+    DelayedRemovalArray<Block> blockList;
 
     public Blocks() {
-        blocks = new DelayedRemovalArray<Block>();
+        blockList = new DelayedRemovalArray<Block>();
         init();
     }
 
     public void init(){
-        blocks.clear();
+        blockList.clear();
 
         for (int i = 0; i < Constants.BLOCKS_ROWS; i++){
             for (int j = 0; j < Constants.BLOCKS_PER_ROW; j++) {
                 Vector2 pos = new Vector2(Constants.BLOCK_W * j, Constants.WORLD_H - Constants.BLOCK_H * i);
 
-                blocks.add(new Block(pos));
+                blockList.add(new Block(pos));
             }
         }
     }
 
     public void render(ShapeRenderer renderer){
-        for (Block block: blocks){
+        for (Block block: blockList){
             block.render(renderer);
         }
     }
